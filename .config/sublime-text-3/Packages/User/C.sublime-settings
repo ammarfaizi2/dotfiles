@@ -1,0 +1,8 @@
+// These settings override both User and Default settings for the C syntax
+{
+    "tab_size": 8,
+
+    // Set to true to insert spaces when tab is pressed
+    "translate_tabs_to_spaces": false,
+    "rulers": [80]
+}

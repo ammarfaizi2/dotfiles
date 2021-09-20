@@ -1,0 +1,22 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"1337 Color Scheme",
+		"A File Icon",
+		"CMake",
+		"GAS-x86 (or x64) highlighting scheme",
+		"Git",
+		"Icon Fonts",
+		"LinkerScript",
+		"MonokaiC",
+		"NASM x86 Assembly",
+		"Package Control",
+		"Terminal",
+		"Terminality",
+		"TerminalView"
+	]
+}

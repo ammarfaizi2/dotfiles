@@ -1,0 +1,23 @@
+[user]
+	name = Ammar Faizi
+	#email = ammarfaizi2@gnuweeb.org
+	#signingkey = E893726DC8E4C0DE3BA20107364FBA34FF170A4B
+	email = ammarfaizi2@gmail.com
+	signingkey = 9CF147792F670851CC899B94CC8CDAF7A2DC6FE8
+[credential]
+	helper = store
+[commit]
+	gpgsign = true
+	template = /home/ammarfaizi2/.git-commit-template
+[core]
+	editor = vim
+[format]
+	signoff = true
+[alias]
+	ci = commit -s -S
+[gpg]
+	program = gpg2
+[init]
+	defaultBranch = master
+[pull]
+	ff = only

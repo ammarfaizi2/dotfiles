@@ -1,0 +1,59 @@
+# SPDX-License-Identifier: GPL-2.0
+#
+# Telegram Desktop Patch (tested for version 2.8.6 beta Linux x86_64)
+# Don't use it on different version, it may crash!
+#
+# Author: @ammarfaizi2, @Akiekano, @rLapz
+#
+# Usage:
+#   gdb Telegram < my_tgpatch.txt >> /dev/null 2>&1 &
+#   disown
+#
+
+# Set breakpoint at main
+b *main
+
+# Run the Telegram
+r
+
+# ---- Anti delete message (group and channel)
+# jmp near +0x56
+p *(short *)(_ZN3Api7Updates10feedUpdateERKN2tl5boxedI9MTPupdateEE+1021)=0x56eb
+
+# ---- Anti delete message (private message)
+# jmp near +0x17
+p *(short *)(_ZN3Api7Updates10feedUpdateERKN2tl5boxedI9MTPupdateEE+1755)=0x17eb
+
+# ---- Hide typing
+# ret
+p *(char *)_ZN3Api19SendProgressManager4sendERKNS0_3KeyEi=0xc3
+
+# ---- Patch _lastWasOnline = 0
+# xorl %ebp, %ebp
+p *(short *)(_ZN3Api7Updates12updateOnlineElb+228)=0xed31
+
+# ---- Patch self->onlineTill
+# movl $0, %eax
+p *(int *)(_ZN3Api7Updates12updateOnlineElb+1049)=0x000000b8
+p *(char *)(_ZN3Api7Updates12updateOnlineElb+1053)=0x00
+
+# ---- Patch updateIn
+# movl $1000000, %r14d
+# nop; nop; nop
+p *(long *)(_ZN3Api7Updates12updateOnlineElb+230)=0x9090000f4240be41
+p *(char *)(_ZN3Api7Updates12updateOnlineElb+238)=0x90
+
+# ---- Patch updateIn (2)
+# movl $1000000, %r14d
+# nop; nop; nop
+p *(long *)(_ZN3Api7Updates12updateOnlineElb+280)=0x9090000f4240be41
+p *(char *)(_ZN3Api7Updates12updateOnlineElb+288)=0x90
+
+# ---- Patch sendReadRequest
+# ---- (when we read someone's message, don't let them know we read it)
+# ret
+p *(char *)_ZN4Data9Histories15sendReadRequestEN3gsl8not_nullIP7HistoryEERNS0_5StateE=0xc3
+
+# Detach and close the GDB
+detach
+q
